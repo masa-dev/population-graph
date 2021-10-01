@@ -62,3 +62,37 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.pref-list {
+  h2 {
+    font-size: 1.3rem;
+    margin-left: 1rem;
+  }
+
+  .pref-inputs {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      padding-left: 0;
+
+      li {
+        width: 7em;
+        font-size: 1.1rem;
+        margin: 3px 0;
+        list-style: none;
+
+        input {
+          cursor: pointer;
+        }
+
+        label {
+          padding: 5px;
+          padding-left: 10px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+</style>
