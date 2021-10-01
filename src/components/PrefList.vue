@@ -33,6 +33,7 @@ export default {
     };
   },
   mounted() {
+    // RESAS APIを用いて都道府県一覧を取得する
     const apiKey = require("../../apiKey");
     const requestURL = "https://opendata.resas-portal.go.jp/api/v1/prefectures";
     const headerName = apiKey.resas.name;
@@ -40,7 +41,6 @@ export default {
 
     fetch(requestURL, {
       method: "GET",
-
       headers: {
         [headerName]: headerValue,
       },
