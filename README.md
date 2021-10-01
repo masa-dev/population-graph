@@ -1,5 +1,7 @@
 # population-graph
 
+コーディングテスト用のディレクトリです。
+
 ## Project setup
 ```
 npm install
