@@ -1,6 +1,5 @@
 <template>
   <main class="main">
-    <h2>都道府県</h2>
     <PrefList />
   </main>
 </template>

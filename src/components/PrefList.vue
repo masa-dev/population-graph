@@ -27,7 +27,7 @@ export default {
     return {
       /**
        * 都道府県の一覧
-       * @type {Array}
+       * @type {Array} プロパティ：id, name, checked
        */
       prefList: [],
     };
