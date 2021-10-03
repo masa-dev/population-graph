@@ -45,7 +45,16 @@ export default {
         [headerName]: headerValue,
       },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          console.error("response.ok:", response.ok);
+          console.error("response.status:", response.status);
+          console.error("response.statusText:", response.statusText);
+          throw new Error(response.statusText);
+        }
+
+        return response.json();
+      })
       .then((data) => {
         data.result.forEach((el) => {
           let pref = {
@@ -57,7 +66,7 @@ export default {
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.error("エラーが発生しました。", error);
       });
   },
 };
