@@ -4,5 +4,9 @@ module.exports = {
     "^.+\\.vue$": "vue-jest",
   },
   collectCoverage: true,
-  collectCoverageFrom: ["src/**/*.{js,vue}", "!**/node_modules/**"]
+  collectCoverageFrom: [
+    "src/**/*.{js,vue}",
+    "!src/main.js",
+    "!**/node_modules/**",
+  ],
 };
