@@ -29,6 +29,7 @@ export default createStore({
       for (let i = 0; i < length; i++) {
         if (state.prefectures[i].code === code) {
           state.prefectures.splice(i, 1);
+          break;
         }
       }
     },
