@@ -123,7 +123,7 @@ export default {
 
       // ストアに存在しているデータを削除する
       else {
-        this.$store.commit("deletePrefecture", prefData.code);
+        this.$store.commit("deletePrefecture", prefData.id);
       }
     },
   },
