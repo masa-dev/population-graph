@@ -5,6 +5,11 @@ export default createStore({
     // 入力された都道府県の総人口等のデータを持つ
     prefectures: [],
   },
+  getters: {
+    prefectures(state) {
+      return state.prefectures;
+    },
+  },
   mutations: {
     /**
      * RESAS API で取得したデータを挿入する
@@ -29,6 +34,7 @@ export default createStore({
       for (let i = 0; i < length; i++) {
         if (state.prefectures[i].code === code) {
           state.prefectures.splice(i, 1);
+          break;
         }
       }
     },

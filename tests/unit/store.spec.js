@@ -43,6 +43,37 @@ describe("mutations", () => {
 
       // 残っていることを確認する
       expect(store.state.prefectures.length).toBe(1);
+
+      // 削除しておく
+      store.commit("deletePrefecture", pref.code);
+      expect(store.state.prefectures.length).toBe(0);
+    });
+  });
+});
+
+describe("getters", () => {
+  describe("prefecturesゲッター", () => {
+    test("格納されたデータがゲッターで引き渡されるか確認する", () => {
+      // 要素をゼロかを確認する
+      expect(store.state.prefectures.length).toBe(0);
+
+      // データを代入する
+      const pref = {
+        code: 1,
+        name: "Dummy Name",
+        data: [{ prop: 1 }],
+      };
+      store.commit("insertPrefecture", pref);
+
+      // ゲッターで取得する
+      const gotPref = store.getters.prefectures;
+
+      // 配列を返しているか
+      expect(Array.isArray(gotPref)).toBeTruthy();
+      expect(gotPref.length).toBe(1);
+      expect(gotPref[0].code).toBe(pref.code);
+      expect(gotPref[0].name).toBe(pref.name);
+      expect(gotPref[0].data[0].prop).toBe(pref.data[0].prop);
     });
   });
 });
