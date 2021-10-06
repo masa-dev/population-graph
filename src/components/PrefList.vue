@@ -131,21 +131,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/variables";
+@import "../styles/mixin";
+
 .pref-list {
   h2 {
-    font-size: 1.3rem;
-    margin-left: 1rem;
+    @include subTitle();
   }
 
   .pref-inputs {
+    margin: 20px 10px;
+
     ul {
       display: flex;
       flex-wrap: wrap;
       padding-left: 0;
+      justify-content: center;
 
       li {
-        width: 7em;
-        font-size: 1.1rem;
+        width: 6em;
+        font-size: $mainFontSize;
         margin: 3px 0;
         list-style: none;
 
@@ -154,8 +159,8 @@ export default {
         }
 
         label {
+          font-size: $mainFontSize;
           padding: 5px;
-          padding-left: 10px;
           cursor: pointer;
         }
       }
