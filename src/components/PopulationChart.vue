@@ -1,7 +1,9 @@
 <template>
   <div class="population-chart">
     <h2>都道府県の総人口の推移グラフ</h2>
-    <canvas id="population-line-chart"></canvas>
+    <div class="chart-wrapper">
+      <canvas id="population-line-chart"></canvas>
+    </div>
   </div>
 </template>
 
@@ -136,3 +138,26 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../styles/variables";
+@import "../styles/mixin";
+
+.population-chart {
+  h2 {
+    @include subTitle();
+  }
+
+  .chart-wrapper {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: $responsiveMainWidth) {
+  .population-chart {
+    .chart-wrapper {
+      padding: 0;
+    }
+  }
+}
+</style>
