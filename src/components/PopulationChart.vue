@@ -71,7 +71,28 @@ export default {
           scales: {
             yAxes: [
               {
-                ticks: { beginAtZero: true },
+                scaleLabel: {
+                  display: true,
+                  labelString: "人口",
+                  fontsize: 10,
+                },
+                ticks: {
+                  beginAtZero: true,
+                  autoSkip: true,
+                },
+              },
+            ],
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: "年度",
+                  fontsize: 10,
+                },
+                ticks: {
+                  beginAtZero: true,
+                  autoSkip: true,
+                },
               },
             ],
           },
@@ -80,6 +101,14 @@ export default {
               scheme: "brewer.DarkTwo8",
             },
           },
+          legend: {
+            position: "top",
+            labels: {
+              boxWidth: 20,
+              fontSize: 11,
+            },
+          },
+          aspectRatio: 1.35,
         },
       });
     },
