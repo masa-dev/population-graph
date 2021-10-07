@@ -4,7 +4,7 @@ import Chart from "chart.js";
 jest.mock("chart.js");
 
 describe("PopulationChart.vue", () => {
-  const state = {
+  let state = {
     prefectures: [
       {
         code: 1,
@@ -13,6 +13,15 @@ describe("PopulationChart.vue", () => {
       },
     ],
   };
+
+  // アスペクト比の比較をするために、10個以上作成する
+  for (let i = 0; i < 10; i++) {
+    state.prefectures.push({
+      code: i,
+      name: "sample" + i,
+      data: [{ year: i * 1000, value: i }],
+    });
+  }
 
   const $store = {
     state: state,
@@ -44,20 +53,46 @@ describe("PopulationChart.vue", () => {
           labels: [],
           datasets: [],
         },
+        aspectRatio: null,
         update() {},
+        resize() {},
       };
     });
 
-    test("ストアにデータが存在する場合", () => {
-      // データの要素が0以上を確認
-      expect(wrapper.vm.prefecturesData.length).toBeGreaterThan(0);
+    describe("ストアにデータが存在する場合", () => {
+      test("window.innerWidthが600以上", () => {
+        window.innerWidth = 1000;
 
-      // watchを直接実行させる
-      wrapper.vm.$options.watch.prefecturesData.handler.call(wrapper.vm);
+        // データの要素が0以上を確認
+        expect(wrapper.vm.prefecturesData.length).toBeGreaterThan(0);
 
-      // データが更新されているかのチェック
-      expect(wrapper.vm.populationChart.data.labels.length > 0).toBe(true);
-      expect(wrapper.vm.populationChart.data.datasets.length > 0).toBe(true);
+        // watchを直接実行させる
+        wrapper.vm.$options.watch.prefecturesData.handler.call(wrapper.vm);
+
+        // データが更新されているかのチェック
+        expect(wrapper.vm.populationChart.data.labels.length > 0).toBe(true);
+        expect(wrapper.vm.populationChart.data.datasets.length > 0).toBe(true);
+
+        // アスペクト比のチェック
+        expect(wrapper.vm.populationChart.aspectRatio).toBe(1.35);
+      });
+
+      test("window.innerWidthが600以下", () => {
+        window.innerWidth = 300;
+
+        // データの要素が0以上を確認
+        expect(wrapper.vm.prefecturesData.length).toBeGreaterThan(0);
+
+        // watchを直接実行させる
+        wrapper.vm.$options.watch.prefecturesData.handler.call(wrapper.vm);
+
+        // データが更新されているかのチェック
+        expect(wrapper.vm.populationChart.data.labels.length > 0).toBe(true);
+        expect(wrapper.vm.populationChart.data.datasets.length > 0).toBe(true);
+
+        // アスペクト比のチェック
+        expect(wrapper.vm.populationChart.aspectRatio <= 1.35).toBeTruthy();
+      });
     });
 
     test("ストアにデータが存在しない場合", () => {
