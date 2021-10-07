@@ -85,7 +85,7 @@ describe("人口データを送信するクリックイベント", () => {
         // 正常の場合のfetchモック
         const fetchPopulationMock = (e) =>
           new Promise((resolve) => {
-            //
+            // 人口データを取得するURLかどうかで分岐させる
             if (e.match("api/v1/population/composition/perYear")) {
               resolve({
                 ok: true,
@@ -144,7 +144,7 @@ describe("人口データを送信するクリックイベント", () => {
         // 異常の場合のfetchモック
         const fetchPopulationMock = (e) =>
           new Promise((resolve) => {
-            //
+            // 人口データを取得するURLかどうかで分岐させる
             if (e.match("api/v1/population/composition/perYear")) {
               resolve({
                 ok: false,
@@ -207,7 +207,7 @@ describe("人口データを送信するクリックイベント", () => {
       // 正常の場合のfetchモック
       const fetchPopulationMock = (e) =>
         new Promise((resolve) => {
-          //
+          // 人口データを取得するURLかどうかで分岐させる
           if (e.match("api/v1/population/composition/perYear")) {
             resolve({
               ok: false,
