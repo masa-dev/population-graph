@@ -1,7 +1,9 @@
 <template>
   <div class="population-chart">
     <h2>都道府県の総人口の推移グラフ</h2>
-    <canvas id="population-line-chart"></canvas>
+    <div class="chart-wrapper">
+      <canvas id="population-line-chart"></canvas>
+    </div>
   </div>
 </template>
 
@@ -71,7 +73,28 @@ export default {
           scales: {
             yAxes: [
               {
-                ticks: { beginAtZero: true },
+                scaleLabel: {
+                  display: true,
+                  labelString: "人口",
+                  fontsize: 10,
+                },
+                ticks: {
+                  beginAtZero: true,
+                  autoSkip: true,
+                },
+              },
+            ],
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: "年度",
+                  fontsize: 10,
+                },
+                ticks: {
+                  beginAtZero: true,
+                  autoSkip: true,
+                },
               },
             ],
           },
@@ -80,6 +103,14 @@ export default {
               scheme: "brewer.DarkTwo8",
             },
           },
+          legend: {
+            position: "top",
+            labels: {
+              boxWidth: 20,
+              fontSize: 11,
+            },
+          },
+          aspectRatio: 1.35,
         },
       });
     },
@@ -107,3 +138,26 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../styles/variables";
+@import "../styles/mixin";
+
+.population-chart {
+  h2 {
+    @include subTitle();
+  }
+
+  .chart-wrapper {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: $responsiveMainWidth) {
+  .population-chart {
+    .chart-wrapper {
+      padding: 0;
+    }
+  }
+}
+</style>
