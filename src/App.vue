@@ -29,6 +29,8 @@ body {
 
 #app {
   font-family: "Noto Sans JP", sans-serif;
+  color: $mainColor;
+  background-color: $mainBackgroundColor;
   width: $responsiveMainWidth;
   margin: 0 auto;
 }
