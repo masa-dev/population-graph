@@ -50,9 +50,23 @@ export default {
         }
       }
 
+      if (window.innerWidth < 600) {
+        const baseAspectRatio = 1.35;
+        // 10個データ数が変化するごとに比率を変更する
+        let multipleOfTen = Math.floor(this.prefecturesData.length / 10);
+        // 調整用の値（幅が大きくなるごとに値も大きくなる）
+        let adjustmentValue = (8 * window.innerWidth) / 450;
+
+        this.populationChart.aspectRatio =
+          baseAspectRatio - multipleOfTen / adjustmentValue;
+      } else {
+        this.populationChart.aspectRatio = 1.35;
+      }
+
       // グラフのデータを更新する
       this.populationChart.data.labels = xLabels;
       this.populationChart.data.datasets = datasets;
+      this.populationChart.resize();
       this.populationChart.update();
     },
     drawLineChart() {
