@@ -149,7 +149,7 @@ export default {
       justify-content: center;
 
       li {
-        width: 6em;
+        width: 6.5em;
         font-size: $mainFontSize;
         margin: 3px 0;
         list-style: none;
