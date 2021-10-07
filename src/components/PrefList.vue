@@ -12,6 +12,7 @@
             type="checkbox"
             :id="`pref-input-${pref.id}`"
             v-model="pref.checked"
+            @change="sendPrefDataToStore(pref.id)"
           />
           <label :for="`pref-input-${pref.id}`">{{ pref.name }}</label>
         </li>
@@ -69,25 +70,87 @@ export default {
         console.error("エラーが発生しました。", error);
       });
   },
+  methods: {
+    // vuex ストアにグラフで表示するための人口データを送信する
+    sendPrefDataToStore(id) {
+      const prefData = this.prefList.filter((pref) => pref.id === id)[0];
+
+      // ストアにデータを送る
+      if (prefData.checked) {
+        const apiKey = require("../../apiKey");
+        const requestURL =
+          "https://opendata.resas-portal.go.jp/api/v1/population/composition/perYear";
+        const headerName = apiKey.resas.name;
+        const headerValue = apiKey.resas.value;
+        const params = { prefCode: prefData.id, cityCode: "-" };
+        const query = new URLSearchParams(params);
+
+        // 総人口データを取得する
+        fetch(`${requestURL}?${query}`, {
+          method: "GET",
+          headers: {
+            [headerName]: headerValue,
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.error("response.ok:", response.ok);
+              console.error("response.status:", response.status);
+              console.error("response.statusText:", response.statusText);
+              throw new Error(response.statusText);
+            }
+
+            return response.json();
+          })
+          .then((data) => {
+            // 実数値の年数上限
+            const maxYear = data.result.boundaryYear;
+            // 総人口かつ実数値のデータを抽出する
+            const actualData = data.result.data
+              .filter((el) => el.label === "総人口")[0]
+              .data.filter((el) => el.year <= maxYear);
+
+            this.$store.commit("insertPrefecture", {
+              code: prefData.id,
+              name: prefData.name,
+              data: actualData,
+            });
+          })
+          .catch((error) => {
+            console.error("エラーが発生しました。", error);
+          });
+      }
+
+      // ストアに存在しているデータを削除する
+      else {
+        this.$store.commit("deletePrefecture", prefData.id);
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+@import "../styles/variables";
+@import "../styles/mixin";
+
 .pref-list {
   h2 {
-    font-size: 1.3rem;
-    margin-left: 1rem;
+    @include subTitle();
   }
 
   .pref-inputs {
+    margin: 20px 10px;
+
     ul {
       display: flex;
       flex-wrap: wrap;
       padding-left: 0;
+      justify-content: center;
 
       li {
-        width: 7em;
-        font-size: 1.1rem;
+        width: 6em;
+        font-size: $mainFontSize;
         margin: 3px 0;
         list-style: none;
 
@@ -96,8 +159,8 @@ export default {
         }
 
         label {
+          font-size: $mainFontSize;
           padding: 5px;
-          padding-left: 10px;
           cursor: pointer;
         }
       }
