@@ -7,7 +7,7 @@ RESAS APIからデータを取得したデータを用いています。
 
 ## サイトURL
 
-[masa-dev.github.io/population-graph/](masa-dev.github.io/population-graph/)\
+[https://masa-dev.github.io/population-graph/](https://masa-dev.github.io/population-graph/)\
 （※Google Chrome 推奨）
 
 ## 特徴
