@@ -58,7 +58,7 @@ export default {
       })
       .then((data) => {
         data.result.forEach((el) => {
-          let pref = {
+          const pref = {
             id: el.prefCode,
             name: el.prefName,
             checked: false,
