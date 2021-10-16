@@ -22,9 +22,9 @@ export default {
   methods: {
     changeData() {
       // X軸のラベル名
-      let xLabels = [];
+      const xLabels = [];
       // Chart.jsのdatasetsにそのまま代入するデータ
-      let datasets = [];
+      const datasets = [];
 
       // ストアにデータが存在する場合はグラフ用のデータを作成する
       if (this.prefecturesData.length > 0) {
@@ -35,7 +35,7 @@ export default {
 
         // 人口データ
         for (const pref of this.prefecturesData) {
-          let values = [];
+          const values = [];
           for (const data of pref.data) {
             values.push(data.value);
           }
@@ -53,9 +53,9 @@ export default {
       if (window.innerWidth < 600) {
         const baseAspectRatio = 1.35;
         // 10個データ数が変化するごとに比率を変更する
-        let multipleOfTen = Math.floor(this.prefecturesData.length / 10);
+        const multipleOfTen = Math.floor(this.prefecturesData.length / 10);
         // 調整用の値（幅が大きくなるごとに値も大きくなる）
-        let adjustmentValue = (8 * window.innerWidth) / 450;
+        const adjustmentValue = (8 * window.innerWidth) / 450;
 
         this.populationChart.aspectRatio =
           baseAspectRatio - multipleOfTen / adjustmentValue;
